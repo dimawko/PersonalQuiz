@@ -8,52 +8,19 @@ class ResultViewController: UIViewController {
     
     var answersChosen: [Answer]!
     
-    var dogCount = 0
-    var catCount = 0
-    var rabbitCount = 0
-    var turtleCount = 0
-    
-    var animalsCount: [Int] {
-        answersChosen.forEach { answer in
-            switch answer.animal {
-            case .dog:
-                dogCount += 1
-            case .cat:
-                catCount += 1
-            case .rabbit:
-                rabbitCount += 1
-            default:
-                turtleCount += 1
-            }
-        }
-        return [dogCount, catCount, rabbitCount, turtleCount]
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getResult()
+        
         navigationItem.hidesBackButton = true
+    }
+    
+    private func getResult() {
+        let animalCountedSet = NSCountedSet(array: answersChosen)
+        guard let animalResult = answersChosen.max(by: { animalCountedSet.count(for: $0) < animalCountedSet.count(for: $1) }) else { return }
+        animalResultLabel.text = "Вы - \(animalResult.animal.rawValue)"
+        animalDefinitionLabel.text = animalResult.animal.definition
     }
 }
 
-extension ResultViewController {
-    private func getResult() {
-        let animalResult = animalsCount.max()
-        
-        switch animalResult {
-        case dogCount:
-            animalResultLabel.text = "Вы - \(Animal.dog.rawValue)"
-            animalDefinitionLabel.text = Animal.dog.definition
-        case catCount:
-            animalResultLabel.text = "Вы - \(Animal.cat.rawValue)"
-            animalDefinitionLabel.text = Animal.cat.definition
-        case rabbitCount:
-            animalResultLabel.text = "Вы - \(Animal.rabbit.rawValue)"
-            animalDefinitionLabel.text = Animal.rabbit.definition
-        default:
-            animalResultLabel.text = "Вы - \(Animal.turtle.rawValue)"
-            animalDefinitionLabel.text = Animal.turtle.definition
-        }
-    }
-}
