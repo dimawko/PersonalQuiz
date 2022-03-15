@@ -1,9 +1,3 @@
-//
-//  ResultViewController.swift
-//  PersonalQuiz
-//
-//  Created by Alexey Efimov on 14.03.2022.
-//
 
 import UIKit
 
@@ -21,13 +15,14 @@ class ResultViewController: UIViewController {
     
     var animalsCount: [Int] {
         answersChosen.forEach { answer in
-            if answer.animal == .dog {
+            switch answer.animal {
+            case .dog:
                 dogCount += 1
-            } else if answer.animal == .cat {
+            case .cat:
                 catCount += 1
-            } else if answer.animal == .rabbit {
+            case .rabbit:
                 rabbitCount += 1
-            } else {
+            default:
                 turtleCount += 1
             }
         }
