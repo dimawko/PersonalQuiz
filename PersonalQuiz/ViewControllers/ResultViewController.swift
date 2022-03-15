@@ -20,19 +20,6 @@ class ResultViewController: UIViewController {
     var turtleCount = 0
     
     var animalsCount: [Int] {
-        [dogCount, catCount, rabbitCount, turtleCount]
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        getResult()
-        navigationItem.hidesBackButton = true
-    }
-}
-
-extension ResultViewController {
-    private func calculateResult() {
         answersChosen.forEach { answer in
             if answer.animal == .dog {
                 dogCount += 1
@@ -44,12 +31,21 @@ extension ResultViewController {
                 turtleCount += 1
             }
         }
+        return [dogCount, catCount, rabbitCount, turtleCount]
     }
     
-    private func getResult() {
-        calculateResult()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        getResult()
+        navigationItem.hidesBackButton = true
+    }
+}
+
+extension ResultViewController {
+    private func getResult() {
         let animalResult = animalsCount.max()
+        
         switch animalResult {
         case dogCount:
             animalResultLabel.text = "Вы - \(Animal.dog.rawValue)"
