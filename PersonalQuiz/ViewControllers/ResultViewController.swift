@@ -21,4 +21,12 @@ class ResultViewController: UIViewController {
         animalResultLabel.text = "Вы - \(animalResult.key.animal.rawValue)"
         animalDefinitionLabel.text = animalResult.key.animal.definition
     }
+    
+    //Second implementation example
+    private func getResultExampleTwo() {
+        let animalCountedSet = NSCountedSet(array: answersChosen)
+        guard let animalResult = answersChosen.max(by: { animalCountedSet.count(for: $0) < animalCountedSet.count(for: $1) }) else { return }
+        animalResultLabel.text = "Вы - \(animalResult.animal.rawValue)"
+        animalDefinitionLabel.text = animalResult.animal.definition
+    }
 }
