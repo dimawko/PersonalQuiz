@@ -52,7 +52,7 @@ enum ResponseType {
     case ranged
 }
 
-struct Answer {
+struct Answer: Hashable {
     let title: String
     let animal: Animal
 }
